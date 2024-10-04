@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:voyage/themes/theme.dart';
 
 class UserDetailCard extends StatefulWidget {
   const UserDetailCard({super.key});
