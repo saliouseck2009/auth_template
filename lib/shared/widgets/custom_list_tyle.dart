@@ -15,7 +15,7 @@ class CustomListTyle extends StatelessWidget {
   final GestureTapCallback? onTap;
 
   const CustomListTyle(
-      {Key? key,
+      {super.key,
       required this.title,
       this.subtitle,
       this.icon,
@@ -23,8 +23,7 @@ class CustomListTyle extends StatelessWidget {
       this.isActive,
       this.trailing,
       required this.color,
-      this.image})
-      : super(key: key);
+      this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +67,7 @@ class CustomListTyle extends StatelessWidget {
               if (icon != null)
                 Icon(
                   icon,
-                  color: CustomColors.mainColor,
+                  color: Theme.of(context).colorScheme.primary,
                   size: 35,
                 )
             ],

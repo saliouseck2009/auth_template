@@ -33,7 +33,7 @@ class LoginForm extends StatelessWidget {
   Widget LoginButton(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: CustomColors.mainColor,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5.0),
             )),
@@ -54,14 +54,14 @@ class LoginForm extends StatelessWidget {
             UtilsScreen.CustomSnackbar(
               context: context,
               description: state.error,
-              colorBackground: CustomColors.red,
+              colorBackground: Theme.of(context).colorScheme.error,
               textType: 'Error',
             );
           } else if (state is LoginSuccess) {
             UtilsScreen.CustomSnackbar(
               context: context,
               description: "User connecté avec succés",
-              colorBackground: CustomColors.successGreen,
+              colorBackground: Theme.of(context).colorScheme.primary,
               textType: 'Success',
             );
             Navigator.pushReplacementNamed(context, MainPage.routeName);
@@ -74,20 +74,21 @@ class LoginForm extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Image(
                     //   fit: BoxFit.fill,
                     //   image: AssetImage('assets/images/DaaraScience.png'),
                     // ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5.0,
                     ),
                     Text(
                       "This is login message",
                       style: TextStyle(
-                          fontSize: 30.0, color: CustomColors.mainColor),
+                          fontSize: 30.0,
+                          color: Theme.of(context).colorScheme.primary),
                     )
                   ],
                 ),
@@ -95,7 +96,8 @@ class LoginForm extends StatelessWidget {
                   height: 5.0,
                 ),
                 CustomTextFormField(
-                  icon: const Icon(Icons.person, color: CustomColors.mainColor),
+                  icon: Icon(Icons.person,
+                      color: Theme.of(context).colorScheme.primary),
                   keyboardType: TextInputType.text,
                   label: "Username",
                   controller: _usernameController,
@@ -111,8 +113,8 @@ class LoginForm extends StatelessWidget {
                   height: 20.0,
                 ),
                 CustomTextFormField(
-                  icon: const Icon(Icons.lock_outline,
-                      color: CustomColors.mainColor),
+                  icon: Icon(Icons.lock_outline,
+                      color: Theme.of(context).colorScheme.primary),
                   keyboardType: TextInputType.visiblePassword,
                   label: "Mot de Passe",
                   controller: _passwordController,
@@ -165,9 +167,13 @@ class LoginForm extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          const Text(
+                          Text(
                             "Don't have an account?",
-                            style: TextStyle(color: CustomColors.grey),
+                            style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onBackground
+                                    .withOpacity(0.4)),
                           ),
                           const Padding(
                             padding: EdgeInsets.only(right: 5.0),
@@ -185,10 +191,11 @@ class LoginForm extends StatelessWidget {
                                   );
                                 }));
                               },
-                              child: const Text(
+                              child: Text(
                                 "Register",
                                 style: TextStyle(
-                                    color: CustomColors.mainColor,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                     fontWeight: FontWeight.bold),
                               ))
                         ],

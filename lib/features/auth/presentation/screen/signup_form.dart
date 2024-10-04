@@ -6,7 +6,6 @@ import 'package:voyage/core/extensions.dart';
 import 'package:voyage/features/auth/presentation/widgets/utils_screen.dart';
 
 import '../../../../../shared/widgets/loading_widget.dart';
-import '../../../../../themes/theme.dart';
 import '../bussiness_logic/bloc/signup_bloc/signup.dart';
 import '../widgets/custom_text_form_field.dart';
 
@@ -41,7 +40,7 @@ class SignupForm extends StatelessWidget {
           UtilsScreen.CustomSnackbar(
             context: context,
             description: state.error,
-            colorBackground: CustomColors.red,
+            colorBackground: Theme.of(context).colorScheme.error,
             textType: 'Error',
           );
         } else if (state is SignupSuccess) {
@@ -49,7 +48,7 @@ class SignupForm extends StatelessWidget {
           UtilsScreen.CustomSnackbar(
             context: context,
             description: "incription effectuée avec succés",
-            colorBackground: CustomColors.successGreen,
+            colorBackground: Theme.of(context).colorScheme.primary,
             textType: 'Succes',
           );
         }
@@ -63,20 +62,21 @@ class SignupForm extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Column(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Image(
                       //   fit: BoxFit.fill,
                       //   image: AssetImage('assets/images/DaaraScience.png'),
                       // ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5.0,
                       ),
                       Text(
                         "Connectez - vous",
                         style: TextStyle(
-                            fontSize: 25.0, color: CustomColors.mainColor),
+                            fontSize: 25.0,
+                            color: Theme.of(context).colorScheme.primary),
                       )
                     ],
                   ),
@@ -84,8 +84,8 @@ class SignupForm extends StatelessWidget {
                     height: 30.0,
                   ),
                   CustomTextFormField(
-                    icon:
-                        const Icon(Icons.email, color: CustomColors.mainColor),
+                    icon: Icon(Icons.email,
+                        color: Theme.of(context).colorScheme.primary),
                     keyboardType: TextInputType.text,
                     label: "Email",
                     controller: _emailController,
@@ -104,8 +104,8 @@ class SignupForm extends StatelessWidget {
                   ),
                   //_passwordTextFormField(),
                   CustomTextFormField(
-                    icon: const Icon(Icons.lock_outline,
-                        color: CustomColors.mainColor),
+                    icon: Icon(Icons.lock_outline,
+                        color: Theme.of(context).colorScheme.primary),
                     keyboardType: TextInputType.visiblePassword,
                     label: "Mot de Passe",
                     controller: _passwordController,
@@ -123,8 +123,8 @@ class SignupForm extends StatelessWidget {
                   ),
                   // _phoneTextFormField(),
                   CustomTextFormField(
-                    icon:
-                        const Icon(Icons.phone, color: CustomColors.mainColor),
+                    icon: Icon(Icons.phone,
+                        color: Theme.of(context).colorScheme.primary),
                     keyboardType: TextInputType.number,
                     label: "Téléphone",
                     controller: _phoneController,
@@ -152,7 +152,9 @@ class SignupForm extends StatelessWidget {
                                 ? const LoadingWidget()
                                 : ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor: CustomColors.mainColor,
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(5.0),
@@ -178,9 +180,13 @@ class SignupForm extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               "Already have an account?",
-                              style: TextStyle(color: CustomColors.grey),
+                              style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground
+                                      .withOpacity(0.4)),
                             ),
                             const Padding(
                               padding: EdgeInsets.only(right: 5.0),
@@ -189,10 +195,11 @@ class SignupForm extends StatelessWidget {
                                 onTap: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: const Text(
+                                child: Text(
                                   "Connexion",
                                   style: TextStyle(
-                                      color: CustomColors.mainColor,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
                                       fontWeight: FontWeight.bold),
                                 ))
                           ],

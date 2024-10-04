@@ -12,17 +12,17 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool notificationenabled;
   final Function()? ontap;
   const CommonAppBar({
-    Key? key,
+    super.key,
     required this.title,
     required this.menuenabled,
     required this.notificationenabled,
     required this.ontap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: CustomColors.mainColor,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       title: Text(
         title,
         style: const TextStyle(

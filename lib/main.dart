@@ -9,12 +9,10 @@ import 'package:voyage/features/auth/presentation/bussiness_logic/bloc/signup_bl
 import 'package:voyage/features/auth/presentation/screen/login_screen.dart';
 import 'package:voyage/route_generator.dart';
 import 'package:voyage/themes/palette.dart';
-import 'package:voyage/themes/theme.dart';
 
 void main() {
-  BlocOverrides.runZoned(() {
-    runApp(const VoyageApp());
-  }, blocObserver: SimpleBlocObserver());
+  Bloc.observer = SimpleBlocObserver();
+  runApp(const VoyageApp());
 }
 
 class VoyageApp extends StatelessWidget {
@@ -64,7 +62,7 @@ class VoyageApp extends StatelessWidget {
                           body: Container(
                             color: Colors.white,
                             width: MediaQuery.of(context).size.width,
-                            child: const Column(
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -73,7 +71,7 @@ class VoyageApp extends StatelessWidget {
                                   width: 25.0,
                                   child: CircularProgressIndicator(
                                     valueColor: AlwaysStoppedAnimation<Color>(
-                                        CustomColors.mainColor),
+                                        Theme.of(context).colorScheme.primary),
                                     strokeWidth: 4.0,
                                   ),
                                 )
@@ -86,7 +84,7 @@ class VoyageApp extends StatelessWidget {
                         body: Container(
                           color: Colors.white,
                           width: MediaQuery.of(context).size.width,
-                          child: const Column(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -95,7 +93,7 @@ class VoyageApp extends StatelessWidget {
                                 width: 25.0,
                                 child: CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation<Color>(
-                                      CustomColors.mainColor),
+                                      Theme.of(context).colorScheme.primary),
                                   strokeWidth: 4.0,
                                 ),
                               )

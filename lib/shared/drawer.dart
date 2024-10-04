@@ -18,36 +18,37 @@ class DrawerStyle extends StatelessWidget {
         children: [
           Column(
             children: <Widget>[
-              _createHeader(),
+              _createHeader(context),
               const Divider(),
               _createDrawerItem(
+                  context: context,
                   icon: Icons.view_list,
                   text: 'Listes des appareils',
                   onTap: () => Navigator.pushReplacementNamed(
                       context, MainPage.routeName)),
             ],
           ),
-          const ListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 30),
+          ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 30),
               title: Text(
                 appVersion,
-                style: TextStyle(color: CustomColors.mainColor),
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
               )),
         ],
       ),
     );
   }
 
-  Widget _createHeader() {
-    return const DrawerHeader(
+  Widget _createHeader(BuildContext context) {
+    return DrawerHeader(
         margin: EdgeInsets.zero,
         padding: EdgeInsets.zero,
-        decoration: BoxDecoration(color: CustomColors.mainColor),
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
         //decoration: BoxDecoration(
         // image: DecorationImage(
         //     fit: BoxFit.fill,
         //     image:  AssetImage('path/to/header_background.png'))),
-        child: Stack(children: [
+        child: const Stack(children: [
           Positioned(
               bottom: 12.0,
               left: 16.0,
@@ -60,19 +61,22 @@ class DrawerStyle extends StatelessWidget {
   }
 
   Widget _createDrawerItem(
-      {IconData? icon, String? text, GestureTapCallback? onTap}) {
+      {IconData? icon,
+      String? text,
+      GestureTapCallback? onTap,
+      required BuildContext context}) {
     return ListTile(
       title: Row(
         children: <Widget>[
           Icon(
             icon,
-            color: CustomColors.mainColor,
+            color: Theme.of(context).colorScheme.primary,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: Text(
               text!,
-              style: const TextStyle(color: CustomColors.mainColor),
+              style: TextStyle(color: Theme.of(context).colorScheme.primary),
             ),
           )
         ],

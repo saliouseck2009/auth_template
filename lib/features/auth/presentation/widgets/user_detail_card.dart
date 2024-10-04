@@ -22,7 +22,7 @@ class _UserDetailCardState extends State<UserDetailCard>
                 padding: const EdgeInsets.only(top: 10.0, right: 0.0),
                 child: Container(
                     decoration: BoxDecoration(
-                      color: CustomColors.mainColor,
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(5),
                     ),
                     height: height * 0.17,
