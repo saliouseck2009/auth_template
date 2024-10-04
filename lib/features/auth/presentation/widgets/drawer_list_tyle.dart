@@ -6,7 +6,7 @@ class DrawerListTile extends StatelessWidget {
   final Function()? ontap;
 
   const DrawerListTile(
-      {Key? key,
+      {super.key,
       required this.name,
       required this.imgpath,
       required this.ontap});

@@ -15,7 +15,7 @@ class RouteGenerator {
             builder: (_) => BlocProvider(
                   create: (context) => SignupBloc(
                       userRepository: context.read<UserRepository>()),
-                  child: SignupScreen(),
+                  child: const SignupScreen(),
                 ));
 
       case MainPage.routeName:

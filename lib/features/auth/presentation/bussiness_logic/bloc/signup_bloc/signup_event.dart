@@ -18,7 +18,6 @@ class SignupButtonPressed extends SignupEvent {
   });
 
   @override
-  // TODO: implement props
   List<Object> get props => [];
   @override
   String toString() => """
@@ -30,43 +29,3 @@ class SignupButtonPressed extends SignupEvent {
   }
   """;
 }
-//       'SignupButtonPressed {
-//         ${username==null?"":"username: "+username+"}",
-//          phone: $phone,
-//           email: $email,
-//            chipId: $chipId
-//             }';
-// }
-
-
-
-
-// class SignUpUsernameChanged extends SignUpEvent {
-//   final String username;
-//   SignUpUsernameChanged({this.username});
-//   @override
-//   List<Object> get props => [username];
-// }
-
-// class SignUpEmailChanged extends SignUpEvent {
-//   final String email;
-//   SignUpEmailChanged({this.email});
-//   @override
-//   List<Object> get props => [email];
-// }
-
-// class SignUpPasswordChanged extends SignUpEvent {
-//   final String password;
-//   SignUpPasswordChanged({this.password});
-//   @override
-//   List<Object> get props => [password];
-// }
-
-// class SignUpPhoneChanged extends SignUpEvent {
-//   final String phone;
-//   SignUpPhoneChanged({this.phone});
-//   @override
-//   List<Object> get props => [phone];
-// }
-
-

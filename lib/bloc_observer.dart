@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// this class [SimpleBlocObserver] is used to observe all bloc event and state then output it in the console.

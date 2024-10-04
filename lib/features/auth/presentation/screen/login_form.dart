@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:voyage/features/auth/presentation/widgets/utils_screen.dart';
 import 'package:voyage/main.dart';
 
-import '../../../../../themes/theme.dart';
 import '../../../../shared/widgets/loading_widget.dart';
 import '../bussiness_logic/bloc/login_bloc/login.dart';
 import '../bussiness_logic/bloc/signup_bloc/signup_bloc.dart';
@@ -30,7 +29,7 @@ class LoginForm extends StatelessWidget {
     }
   }
 
-  Widget LoginButton(BuildContext context) {
+  Widget loginButton(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.primary,
@@ -51,14 +50,14 @@ class LoginForm extends StatelessWidget {
     return BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoginFailure) {
-            UtilsScreen.CustomSnackbar(
+            UtilsScreen.customSnackbar(
               context: context,
               description: state.error,
               colorBackground: Theme.of(context).colorScheme.error,
               textType: 'Error',
             );
           } else if (state is LoginSuccess) {
-            UtilsScreen.CustomSnackbar(
+            UtilsScreen.customSnackbar(
               context: context,
               description: "User connecté avec succés",
               colorBackground: Theme.of(context).colorScheme.primary,
@@ -150,7 +149,7 @@ class LoginForm extends StatelessWidget {
                               height: 45,
                               child: state is LoginLoading
                                   ? const LoadingWidget()
-                                  : LoginButton(context));
+                                  : loginButton(context));
                         },
                       ),
                     ],
@@ -187,7 +186,7 @@ class LoginForm extends StatelessWidget {
                                     create: (context) => SignupBloc(
                                         userRepository:
                                             context.read<UserRepository>()),
-                                    child: SignupScreen(),
+                                    child: const SignupScreen(),
                                   );
                                 }));
                               },

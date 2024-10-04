@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 
 class UserInfo extends Equatable {
@@ -23,6 +22,5 @@ class UserInfo extends Equatable {
   }
 
   @override
-  // TODO: implement props
   List<Object> get props => [token, id];
 }

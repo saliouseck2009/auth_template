@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class UtilsScreen {
-  static CustomSnackbar(
+  static customSnackbar(
       {required BuildContext context,
       int duration = 2,
       required Color colorBackground,

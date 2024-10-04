@@ -8,7 +8,7 @@ import 'login_form.dart';
 class LoginScreen extends StatelessWidget {
   static const routeName = "/login";
   const LoginScreen({
-    Key? key,
+    super.key,
   });
 
   @override

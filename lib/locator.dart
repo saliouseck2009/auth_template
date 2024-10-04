@@ -6,5 +6,4 @@ GetIt locator = GetIt.instance;
 
 Future setup() async {
   locator.registerSingleton<UserRepository>(UserRepository());
-
 }

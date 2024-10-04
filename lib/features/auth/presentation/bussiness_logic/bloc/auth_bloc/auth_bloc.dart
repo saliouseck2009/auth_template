@@ -15,7 +15,6 @@ class AuthenticationBloc
   _appStarted(AppStarted event, Emitter<AuthenticationState> emit) async {
     final bool hasToken = await userRepository.hasToken();
     final bool hasUserId = await userRepository.hasUsersId();
-    print("befor verif $hasToken and $hasUserId");
     if (hasToken & hasUserId) {
       emit(AuthenticationAuthenticated());
     } else {

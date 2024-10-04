@@ -37,7 +37,7 @@ class SignupForm extends StatelessWidget {
     return BlocListener<SignupBloc, SignupState>(
       listener: (context, state) {
         if (state is SignupFailure) {
-          UtilsScreen.CustomSnackbar(
+          UtilsScreen.customSnackbar(
             context: context,
             description: state.error,
             colorBackground: Theme.of(context).colorScheme.error,
@@ -45,7 +45,7 @@ class SignupForm extends StatelessWidget {
           );
         } else if (state is SignupSuccess) {
           Navigator.pop(context);
-          UtilsScreen.CustomSnackbar(
+          UtilsScreen.customSnackbar(
             context: context,
             description: "incription effectuée avec succés",
             colorBackground: Theme.of(context).colorScheme.primary,

@@ -5,10 +5,6 @@ import '../../../../../locator.dart';
 import '../models/user_info.dart';
 
 class UserRepository {
-  //https://baj3n.herokuapp.com/api/auth/login/
-  // static String mainUrl = "https://reqres.in";
-  // var loginUrl = '$mainUrl/api/login';
-  // static String devUrl = "http://127.0.0.1:3600";
   static String mainUrl = "https://baj3n.herokuapp.com";
   String loginUrl = '$mainUrl/api/auth/login';
   String signupUrl = '$mainUrl/api/auth/signup';

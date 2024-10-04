@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../data/repository/repositories.dart';
 import '../auth_bloc/auth_bloc.dart';
 import 'login.dart';
@@ -19,14 +20,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   _loginButtonPressed(
       LoginButtonPressed event, Emitter<LoginState> emit) async {
     emit(LoginLoading());
-    // try {
-    //   throw Exception("Exception intentionnelle");
-    // } catch (exception, stackTrace) {
-    //   await Sentry.captureException(
-    //     exception,
-    //     stackTrace: stackTrace,
-    //   );
-    // }
 
     try {
       await Future.delayed(const Duration(seconds: 1));
@@ -35,14 +28,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } else {
         emit(const LoginFailure(error: "Cet utilisateur n'existe"));
       }
-      // final data = await userRepository.login(
-      //   event.email!,
-      //   event.password!,
-      // );
-      // authenticationBloc
-      //     .add(LoggedIn(token: data['token'], userId: data['userId']));
-      // locator.get<UserInfo>().setId = data['userId']!;
-      // locator.get<UserInfo>().setToken = data['token']!;
     } catch (error) {
       emit(const LoginFailure(error: "Erreur de connexion"));
       rethrow;

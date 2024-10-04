@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 
 class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({Key? key}) : super(key: key);
+  const LoadingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             SizedBox(
               height: 25.0,
               width: 25.0,
