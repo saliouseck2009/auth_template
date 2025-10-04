@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../../../domain/entities/user_entity.dart';
+
 abstract class AuthenticationEvent extends Equatable {
   const AuthenticationEvent();
 }
@@ -10,16 +12,15 @@ class AppStarted extends AuthenticationEvent {
 }
 
 class LoggedIn extends AuthenticationEvent {
-  final String? token;
-  final String? userId;
+  final UserEntity user;
 
-  const LoggedIn({required this.token, required this.userId});
-
-  @override
-  List<Object?> get props => [token, userId];
+  const LoggedIn({required this.user});
 
   @override
-  String toString() => 'LoggedIn { token: $token, userId: $userId }';
+  List<Object?> get props => [user];
+
+  @override
+  String toString() => 'LoggedIn { user: $user }';
 }
 
 class LoggedOut extends AuthenticationEvent {

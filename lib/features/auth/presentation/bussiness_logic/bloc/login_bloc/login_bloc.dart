@@ -1,36 +1,48 @@
-import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../data/repository/repositories.dart';
+
+import '../../../../../../core/data_state/data_state.dart';
+import '../../../../domain/usecases/login_usecase.dart';
 import '../auth_bloc/auth_bloc.dart';
+import '../auth_bloc/auth_event.dart';
 import 'login.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final UserRepository userRepository;
+  final LoginUseCase loginUseCase;
   final AuthenticationBloc authenticationBloc;
 
-  LoginBloc({
-    required this.userRepository,
-    required this.authenticationBloc,
-  }) : super(LoginInitial()) {
+  LoginBloc({required this.loginUseCase, required this.authenticationBloc})
+    : super(LoginInitial()) {
     on<LoginButtonPressed>((event, emit) => _loginButtonPressed(event, emit));
   }
 
   _loginButtonPressed(
-      LoginButtonPressed event, Emitter<LoginState> emit) async {
+    LoginButtonPressed event,
+    Emitter<LoginState> emit,
+  ) async {
     emit(LoginLoading());
 
+    // Validate input
+    if (event.email == null || event.password == null) {
+      emit(const LoginFailure(error: "Email and password are required"));
+      return;
+    }
+
     try {
-      await Future.delayed(const Duration(seconds: 1));
-      if (event.email == "saliou@seck.com" && event.password == "toor") {
+      final result = await loginUseCase(
+        params: LoginParams(email: event.email!, password: event.password!),
+      );
+
+      if (result is DataSuccess) {
         emit(LoginSuccess());
-      } else {
-        emit(const LoginFailure(error: "Cet utilisateur n'existe"));
+
+        // Trigger authentication state update
+        authenticationBloc.add(LoggedIn(user: result.data!));
+      } else if (result is DataFailed) {
+        emit(LoginFailure(error: result.error ?? "Login failed"));
       }
     } catch (error) {
-      emit(const LoginFailure(error: "Erreur de connexion"));
-      rethrow;
+      emit(LoginFailure(error: error.toString()));
     }
   }
 }

@@ -1,38 +1,66 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:voyage/features/auth/data/repository/repositories.dart';
+
+import '../../../../domain/entities/user_entity.dart';
+import '../../../../domain/usecases/check_auth_status_usecase.dart';
+import '../../../../domain/usecases/get_current_user_usecase.dart';
+import '../../../../domain/usecases/logout_usecase.dart';
 import 'auth.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final UserRepository userRepository = UserRepository();
+  final CheckAuthStatusUseCase checkAuthStatusUseCase;
+  final LogoutUseCase logoutUseCase;
+  final GetCurrentUserUseCase getCurrentUserUseCase;
 
-  AuthenticationBloc() : super(AuthenticationUninitialized()) {
+  AuthenticationBloc({
+    required this.checkAuthStatusUseCase,
+    required this.logoutUseCase,
+    required this.getCurrentUserUseCase,
+  }) : super(AuthenticationUninitialized()) {
     on<AppStarted>((event, emit) => _appStarted(event, emit));
     on<LoggedIn>((event, emit) => _loggedIn(event, emit));
     on<LoggedOut>((event, emit) => _loggedOut(event, emit));
   }
 
   _appStarted(AppStarted event, Emitter<AuthenticationState> emit) async {
-    final bool hasToken = await userRepository.hasToken();
-    final bool hasUserId = await userRepository.hasUsersId();
-    if (hasToken & hasUserId) {
-      emit(AuthenticationAuthenticated());
-    } else {
+    emit(
+      AuthenticationLoading(),
+    ); // Emit loading state while checking authentication
+
+    try {
+      final bool hasValidToken = await checkAuthStatusUseCase(params: null);
+
+      if (hasValidToken) {
+        final UserEntity? currentUser = await getCurrentUserUseCase(
+          params: null,
+        );
+        if (currentUser != null) {
+          emit(AuthenticationAuthenticated(user: currentUser));
+        } else {
+          emit(AuthenticationUnauthenticated());
+        }
+      } else {
+        emit(AuthenticationUnauthenticated());
+      }
+    } catch (e) {
+      // In case of any error, default to unauthenticated
       emit(AuthenticationUnauthenticated());
     }
   }
 
   _loggedIn(LoggedIn event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
-    await userRepository.persistToken(event.token!);
-    await userRepository.persistUserId(event.userId!);
-    emit(AuthenticationAuthenticated());
+    emit(AuthenticationAuthenticated(user: event.user));
   }
 
   _loggedOut(LoggedOut event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
-    await userRepository.deleteToken();
-    await userRepository.deleteUserId();
-    emit(AuthenticationUnauthenticated());
+    try {
+      await logoutUseCase(params: null);
+      emit(AuthenticationUnauthenticated());
+    } catch (e) {
+      // Even if logout fails, consider user as unauthenticated
+      emit(AuthenticationUnauthenticated());
+    }
   }
 }
