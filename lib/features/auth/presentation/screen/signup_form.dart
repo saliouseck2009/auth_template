@@ -2,12 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:voyage/core/extensions.dart';
-import 'package:voyage/features/auth/presentation/widgets/utils_screen.dart';
-
-import '../../../../../shared/widgets/loading_widget.dart';
+import 'package:voyage/core/helpers/extensions/extension.dart';
 import '../bussiness_logic/bloc/signup_bloc/signup.dart';
 import '../widgets/custom_text_form_field.dart';
+import '../widgets/utils_screen.dart';
 
 class SignupForm extends StatelessWidget {
   SignupForm({super.key});
@@ -17,8 +15,10 @@ class SignupForm extends StatelessWidget {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
 
-  _onSignupButtonPressed(
-      {required BuildContext context, required GlobalKey<FormState> key}) {
+  _onSignupButtonPressed({
+    required BuildContext context,
+    required GlobalKey<FormState> key,
+  }) {
     log("TRIGGERED");
     if (key.currentState!.validate()) {
       BlocProvider.of<SignupBloc>(context).add(
@@ -69,23 +69,22 @@ class SignupForm extends StatelessWidget {
                       //   fit: BoxFit.fill,
                       //   image: AssetImage('assets/images/DaaraScience.png'),
                       // ),
-                      const SizedBox(
-                        height: 5.0,
-                      ),
+                      const SizedBox(height: 5.0),
                       Text(
                         "Connectez - vous",
                         style: TextStyle(
-                            fontSize: 25.0,
-                            color: Theme.of(context).colorScheme.primary),
-                      )
+                          fontSize: 25.0,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   CustomTextFormField(
-                    icon: Icon(Icons.email,
-                        color: Theme.of(context).colorScheme.primary),
+                    icon: Icon(
+                      Icons.email,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                     keyboardType: TextInputType.text,
                     label: "Email",
                     controller: _emailController,
@@ -99,13 +98,13 @@ class SignupForm extends StatelessWidget {
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   //_passwordTextFormField(),
                   CustomTextFormField(
-                    icon: Icon(Icons.lock_outline,
-                        color: Theme.of(context).colorScheme.primary),
+                    icon: Icon(
+                      Icons.lock_outline,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                     keyboardType: TextInputType.visiblePassword,
                     label: "Mot de Passe",
                     controller: _passwordController,
@@ -118,13 +117,13 @@ class SignupForm extends StatelessWidget {
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   // _phoneTextFormField(),
                   CustomTextFormField(
-                    icon: Icon(Icons.phone,
-                        color: Theme.of(context).colorScheme.primary),
+                    icon: Icon(
+                      Icons.phone,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                     keyboardType: TextInputType.number,
                     label: "Téléphone",
                     controller: _phoneController,
@@ -138,76 +137,77 @@ class SignupForm extends StatelessWidget {
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0, bottom: 20.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         SizedBox(
-                            height: 45,
-                            child: state is SignupLoading
-                                ? const LoadingWidget()
-                                : ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5.0),
-                                        )),
-                                    onPressed: () => _onSignupButtonPressed(
-                                        key: _formKeySignUp, context: context),
-                                    child: const Text("Creer un compte",
-                                        style: TextStyle(
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white)))),
+                          height: 45,
+                          child: state is SignupLoading
+                              ? const CircularProgressIndicator.adaptive()
+                              : ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                  ),
+                                  onPressed: () => _onSignupButtonPressed(
+                                    key: _formKeySignUp,
+                                    context: context,
+                                  ),
+                                  child: const Text(
+                                    "Creer un compte",
+                                    style: TextStyle(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                        ),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 40.0,
-                  ),
+                  const SizedBox(height: 40.0),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                        padding: const EdgeInsets.only(bottom: 30.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Already have an account?",
+                      padding: const EdgeInsets.only(bottom: 30.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Already have an account?",
+                            style: TextStyle(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurface.withValues(alpha: .4),
+                            ),
+                          ),
+                          const Padding(padding: EdgeInsets.only(right: 5.0)),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "Connexion",
                               style: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground
-                                      .withOpacity(0.4)),
+                                color: Theme.of(context).colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(right: 5.0),
-                            ),
-                            GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text(
-                                  "Connexion",
-                                  style: TextStyle(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      fontWeight: FontWeight.bold),
-                                ))
-                          ],
-                        )),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  const SizedBox(
-                    height: 20.0,
-                  )
+                  const SizedBox(height: 20.0),
                 ],
               ),
             ),
